@@ -1,0 +1,9 @@
+{
+    "appId": "devicesync-mmucs",
+    "appUrl": "https://realm.mongodb.com/groups/656136f34a648746941c3d57/apps/6561b8b33d09b1bd084133ac",
+    "baseUrl": "https://realm.mongodb.com",
+    "clientApiBaseUrl": "https://ap-south-1.aws.realm.mongodb.com",
+    "dataApiBaseUrl": "https://ap-south-1.aws.data.mongodb-api.com",
+    "dataExplorerLink": "https://cloud.mongodb.com/links/656136f34a648746941c3d57/explorer/database/database/collection/find",
+    "dataSourceName": "mongodb-atlas"
+}
