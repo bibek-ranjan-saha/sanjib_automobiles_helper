@@ -3,8 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sanjibautomobiles/components/widgets.dart';
 
 import '../providers/realm_services.dart';
-import '../realm/schemas.dart';
-import '../theme.dart';
+import '../realm/inventory_item.dart';
 import 'modify_item.dart';
 
 enum MenuOption { edit, delete }
@@ -21,9 +20,7 @@ class TodoItem extends StatelessWidget {
         ? ListTile(
             title: Text(item.goodsDescription),
             subtitle: Text(
-              "Price: ${item.pricePerPiece},Quantity: ${item.quantity}",
-              style: boldTextStyle(),
-            ),
+              "Price: ${item.pricePerPiece},Quantity: ${item.quantity}"),
             trailing: SizedBox(
               width: 25,
               child: PopupMenuButton<MenuOption>(

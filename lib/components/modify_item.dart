@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sanjibautomobiles/components/widgets.dart';
+import 'package:sanjibautomobiles/utils/extensions.dart';
 
 import '../providers/realm_services.dart';
-import '../realm/schemas.dart';
+import '../realm/inventory_item.dart';
 
 class ModifyItemForm extends StatefulWidget {
   final InventoryItem item;
@@ -79,19 +80,31 @@ class _ModifyItemFormState extends State<ModifyItemForm> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      cancelButton(context),
-                      deleteButton(context,
-                          onPressed: () =>
-                              delete(realmServices, item, context)),
-                      okButton(context, "Update", onPressed: () async {
-                        final description = _itemPriceController.text;
-                        final price =
-                            int.tryParse(_itemPriceController.text) ?? 0;
-                        final quantity =
-                            int.tryParse(_itemQuantityController.text) ?? 0;
-                        await update(context, realmServices, item, description,
-                            price, quantity);
-                      })
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.grey),
+                          child: const Text("Cancel")),
+                      20.horizontalSpace(),
+                      Consumer<RealmServices>(
+                          builder: (context, realmServices, child) {
+                        return ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green),
+                            onPressed: () async {
+                              final description = _itemPriceController.text;
+                              final price =
+                                  int.tryParse(_itemPriceController.text) ?? 0;
+                              final quantity =
+                                  int.tryParse(_itemQuantityController.text) ??
+                                      0;
+                              await update(context, realmServices, item,
+                                  description, price, quantity);
+                            },
+                            child: const Text("Update"));
+                      }),
                     ],
                   ),
                 ),

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'schemas.dart';
+part of 'inventory_item.dart';
 
 // **************************************************************************
 // RealmObjectGenerator
@@ -9,17 +9,30 @@ part of 'schemas.dart';
 // ignore_for_file: type=lint
 class InventoryItem extends _InventoryItem
     with RealmEntity, RealmObjectBase, RealmObject {
+  static var _defaultsSet = false;
+
   InventoryItem(
     ObjectId id,
     String goodsDescription,
     int pricePerPiece,
     int quantity,
-    String ownerId,
-  ) {
+    String ownerId, {
+    String? qrCode,
+    String? productImage,
+    bool isDeleted = false,
+  }) {
+    if (!_defaultsSet) {
+      _defaultsSet = RealmObjectBase.setDefaults<InventoryItem>({
+        'isDeleted': false,
+      });
+    }
     RealmObjectBase.set(this, '_id', id);
     RealmObjectBase.set(this, 'goodsDescription', goodsDescription);
     RealmObjectBase.set(this, 'pricePerPiece', pricePerPiece);
     RealmObjectBase.set(this, 'quantity', quantity);
+    RealmObjectBase.set(this, 'qrCode', qrCode);
+    RealmObjectBase.set(this, 'productImage', productImage);
+    RealmObjectBase.set(this, 'isDeleted', isDeleted);
     RealmObjectBase.set(this, 'owner_id', ownerId);
   }
 
@@ -50,6 +63,23 @@ class InventoryItem extends _InventoryItem
   set quantity(int value) => RealmObjectBase.set(this, 'quantity', value);
 
   @override
+  String? get qrCode => RealmObjectBase.get<String>(this, 'qrCode') as String?;
+  @override
+  set qrCode(String? value) => RealmObjectBase.set(this, 'qrCode', value);
+
+  @override
+  String? get productImage =>
+      RealmObjectBase.get<String>(this, 'productImage') as String?;
+  @override
+  set productImage(String? value) =>
+      RealmObjectBase.set(this, 'productImage', value);
+
+  @override
+  bool get isDeleted => RealmObjectBase.get<bool>(this, 'isDeleted') as bool;
+  @override
+  set isDeleted(bool value) => RealmObjectBase.set(this, 'isDeleted', value);
+
+  @override
   String get ownerId => RealmObjectBase.get<String>(this, 'owner_id') as String;
   @override
   set ownerId(String value) => RealmObjectBase.set(this, 'owner_id', value);
@@ -72,6 +102,9 @@ class InventoryItem extends _InventoryItem
       SchemaProperty('goodsDescription', RealmPropertyType.string),
       SchemaProperty('pricePerPiece', RealmPropertyType.int),
       SchemaProperty('quantity', RealmPropertyType.int),
+      SchemaProperty('qrCode', RealmPropertyType.string, optional: true),
+      SchemaProperty('productImage', RealmPropertyType.string, optional: true),
+      SchemaProperty('isDeleted', RealmPropertyType.bool),
       SchemaProperty('ownerId', RealmPropertyType.string, mapTo: 'owner_id'),
     ]);
   }

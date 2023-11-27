@@ -13,7 +13,7 @@ class TodoAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final realmServices = Provider.of<RealmServices>(context);
     return AppBar(
-      title: const Text('Realm Flutter To-Do'),
+      title: const Text('Sanjib Auto-mobile'),
       automaticallyImplyLeading: false,
       actions: <Widget>[
         IconButton(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sanjibautomobiles/components/widgets.dart';
+import 'package:sanjibautomobiles/utils/extensions.dart';
 
 import '../providers/realm_services.dart';
 
@@ -12,6 +13,12 @@ class CreateItemAction extends StatelessWidget {
     return styledFloatingAddButton(context,
         onPressed: () => showModalBottomSheet(
               isScrollControlled: true,
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              )),
+              clipBehavior: Clip.hardEdge,
               context: context,
               builder: (_) => const Wrap(children: [CreateItemForm()]),
             ));
@@ -58,21 +65,29 @@ class _CreateItemFormState extends State<CreateItemForm> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text("Create a new item", style: theme.headline6),
+              Text("Create a new Product", style: theme.titleLarge),
               TextFormField(
                 controller: _itemDescriptionController,
+                decoration: const InputDecoration(hintText: "Description"),
                 validator: (value) => (value ?? "").isEmpty
                     ? "Please enter goods description"
                     : null,
               ),
+              10.verticalSpace(),
               TextFormField(
                 controller: _itemPriceController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(hintText: "Price per piece"),
                 validator: (value) => (value ?? "").isEmpty
                     ? "Please enter price per piece"
                     : null,
               ),
+              10.verticalSpace(),
               TextFormField(
                 controller: _itemQuantityController,
+                keyboardType: TextInputType.number,
+                decoration:
+                    const InputDecoration(hintText: "Quantity available"),
                 validator: (value) => (value ?? "").isEmpty
                     ? "Please enter quantity available"
                     : null,
@@ -82,11 +97,21 @@ class _CreateItemFormState extends State<CreateItemForm> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    cancelButton(context),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.grey),
+                        child: const Text("Cancel")),
+                    20.horizontalSpace(),
                     Consumer<RealmServices>(
                         builder: (context, realmServices, child) {
-                      return okButton(context, "Create",
-                          onPressed: () => save(realmServices, context));
+                      return ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green),
+                          onPressed: () => save(realmServices, context),
+                          child: const Text("Create"));
                     }),
                   ],
                 ),

@@ -1,6 +1,6 @@
 import 'package:realm/realm.dart';
 
-part 'schemas.g.dart';
+part 'inventory_item.g.dart';
 
 @RealmModel()
 class _InventoryItem {
@@ -10,6 +10,9 @@ class _InventoryItem {
   late String goodsDescription;
   late int pricePerPiece;
   late int quantity;
+  late String? qrCode;
+  late String? productImage;
+  bool isDeleted = false;
   @MapTo('owner_id')
   late String ownerId;
 }

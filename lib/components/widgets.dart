@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../theme.dart';
-
 Widget formLayout(BuildContext context, Widget? contentWidget) {
   return Padding(
       padding:
@@ -14,39 +12,6 @@ Widget formLayout(BuildContext context, Widget? contentWidget) {
           )));
 }
 
-Widget loginField(TextEditingController controller,
-    {String? labelText, String? hintText, bool? obscure}) {
-  return Padding(
-    padding: const EdgeInsets.all(15),
-    child: TextField(
-        obscureText: obscure ?? false,
-        controller: controller,
-        decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            labelText: labelText,
-            hintText: hintText)),
-  );
-}
-
-Widget loginButton(BuildContext context,
-    {void Function()? onPressed, Widget? child}) {
-  return Container(
-    height: 50,
-    width: 250,
-    margin: const EdgeInsets.symmetric(vertical: 25),
-    child: ElevatedButton(
-      style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-          textStyle: MaterialStateProperty.all<TextStyle>(
-              const TextStyle(color: Colors.white, fontSize: 20)),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0)))),
-      onPressed: onPressed,
-      child: child,
-    ),
-  );
-}
 
 Widget templateButton(BuildContext context,
     {Color color = Colors.grey,
@@ -62,28 +27,10 @@ Widget templateButton(BuildContext context,
   );
 }
 
-Widget cancelButton(BuildContext context) {
-  return templateButton(
-    context,
-    text: "Cancel",
-    onPressed: () => Navigator.pop(context),
-  );
-}
-
-Widget okButton(BuildContext context, String text,
-    {void Function()? onPressed}) {
-  return templateButton(
-    context,
-    color: forestGreenColor,
-    text: text,
-    onPressed: onPressed,
-  );
-}
-
 Widget deleteButton(BuildContext context, {void Function()? onPressed}) {
   return templateButton(
     context,
-    color: darkRedColor,
+    color: Colors.red,
     text: "Delete",
     onPressed: onPressed,
   );
@@ -100,9 +47,8 @@ RadioListTile<bool> radioButton(
 }
 
 Widget styledBox(BuildContext context, {bool isHeader = false, Widget? child}) {
-  return Container(
+  return SizedBox(
     width: double.infinity,
-    decoration: headerFooterBoxDecoration(context, isHeader),
     child: Padding(
       padding: const EdgeInsets.all(15),
       child: child,
@@ -154,9 +100,7 @@ SnackBar infoMessageSnackBar(BuildContext context, String message) {
           child: Center(
             child: Container(
               padding: const EdgeInsets.all(16),
-              decoration: infoBoxDecoration(context),
-              child: Text(message,
-                  style: infoTextStyle(context), textAlign: TextAlign.center),
+              child: Text(message, textAlign: TextAlign.center),
             ),
           )));
 }
@@ -174,12 +118,10 @@ SnackBar errorMessageSnackBar(
           child: Center(
             child: Container(
                 padding: const EdgeInsets.all(16),
-                decoration: errorBoxDecoration(context),
                 child: Column(
                   children: [
-                    Text(title, style: errorTextStyle(context, bold: true)),
-                    Expanded(
-                        child: Text(message, style: errorTextStyle(context))),
+                    Text(title),
+                    Expanded(child: Text(message)),
                   ],
                 )),
           )));

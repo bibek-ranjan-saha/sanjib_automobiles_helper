@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:realm/realm.dart';
 
-import '../realm/schemas.dart';
+import '../realm/inventory_item.dart';
 
 class RealmServices with ChangeNotifier {
   static const String queryAllName = "getAllItemsSubscription";

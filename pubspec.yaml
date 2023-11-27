@@ -18,6 +18,16 @@ dependencies:
   url_launcher: ^6.1.12
   shared_preferences: ^2.2.2
   connectivity_plus: ^5.0.2
+  flutter_launcher_icons: ^0.13.1
+  cloudinary: ^1.2.0
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/images/sanjibautombiles.jpeg"
+  min_sdk_android: 21
+
 
 dev_dependencies:
   flutter_test:
@@ -30,3 +40,4 @@ flutter:
 
   assets:
     - assets/config/
+    - assets/images/

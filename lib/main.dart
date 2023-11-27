@@ -1,10 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:sanjibautomobiles/providers/realm_services.dart';
-import 'package:sanjibautomobiles/theme.dart';
-import 'dart:convert';
 import 'package:provider/provider.dart';
+import 'package:sanjibautomobiles/config/theme.dart';
 import 'package:sanjibautomobiles/providers/app_services.dart';
+import 'package:sanjibautomobiles/providers/realm_services.dart';
+import 'package:sanjibautomobiles/providers/theme_provider.dart';
 import 'package:sanjibautomobiles/screens/homepage.dart';
 import 'package:sanjibautomobiles/screens/log_in.dart';
 
@@ -14,6 +16,7 @@ void main() async {
   Config realmConfig = await Config.getConfig('assets/config/atlasConfig.json');
 
   return runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => ThemeProvider()..initialize()),
     ChangeNotifierProvider<Config>(create: (_) => realmConfig),
     ChangeNotifierProvider<AppServices>(
         create: (_) => AppServices(realmConfig.appId, realmConfig.baseUrl)),
@@ -36,14 +39,19 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentUser =
         Provider.of<RealmServices?>(context, listen: false)?.currentUser;
-    return MaterialApp(
-      title: 'Sanjib Automobiles Kesinga',
-      initialRoute: currentUser != null ? '/' : '/login',
-      routes: {
-        '/': (context) => const HomePage(),
-        '/login': (context) => LogIn()
-      },
-    );
+    return Consumer<ThemeProvider>(builder: (ctx, provider, child) {
+      return MaterialApp(
+        title: 'Sanjib Automobiles Kesinga',
+        themeMode: provider.themeMode,
+        theme: AppThemeData.lightTheme,
+        darkTheme: AppThemeData.darkTheme,
+        initialRoute: currentUser != null ? '/' : '/login',
+        routes: {
+          '/': (context) => const HomePage(),
+          '/login': (context) => const LogInPage()
+        },
+      );
+    });
   }
 }
 
@@ -63,7 +71,7 @@ class Config extends ChangeNotifier {
 
   static Future<Config> getConfig(String jsonConfigPath) async {
     dynamic realmConfig =
-        json.decode(await rootBundle.loadString(jsonConfigPath));
+    json.decode(await rootBundle.loadString(jsonConfigPath));
 
     var config = Config._create(realmConfig);
 
